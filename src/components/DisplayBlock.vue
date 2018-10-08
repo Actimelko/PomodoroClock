@@ -5,7 +5,7 @@
            <p class="title is-3">Session</p>
            <p class="is-size-2">{{ timer }}</p>
         </div>  
-        <div class="has-text-centered">
+        <div class="has-text-centered m-buttons">
             <button class="button" name="start">start</button>
             <button class="button" name="pause">pause</button>
             <button class="button" name="refresh">refresh</button>
@@ -33,6 +33,23 @@
     .display {
         width: 45%;
         margin: 0 auto;
+    }
+
+    @media all and (max-width: 425px) {
+        .display {
+            width: 80%;
+        }
+
+        .m-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .m-buttons button{
+            min-width: 150px;
+            margin-top: 2%;
+        }
     }
 </style>
 

@@ -37,4 +37,14 @@
     .b-buttons {
         display: flex;
     }
+
+    @media all and (max-width: 425px) {
+        .is-3 {
+            font-size: 1em;
+        }
+
+        .box {
+            width: 48%;
+        }
+    }
 </style>

@@ -16,7 +16,7 @@
       :timer="getTimer"
       @start="clock.handlerDisplay($event)"/>
 
-    <audio src="src/audio/clock_town_music_box.mp3" id="audio"></audio>
+    <audio src="src/audio/clock_town_music_box.mp3" id="audio" loop></audio>
   </div>
 </template>
 
@@ -48,7 +48,7 @@ class Clock {
   }
 
   minusBreakLength() {
-    if (this.breakLength === 0) return;
+    if (this.breakLength === 1) return;
     --this.breakLength;
   }
 
@@ -65,7 +65,7 @@ class Clock {
   }
 
   minusSessionLength() {
-    if (this.sessionLength === 0) return;
+    if (this.sessionLength === 1) return;
     --this.sessionLength;
     this.timer.minutes = this.sessionLength;
     this.timer.seconds = 0;
@@ -78,8 +78,17 @@ class Clock {
   }
 
   playAudio() { 
+    const from = new Date();
+    const to = from.getTime() + this.breakLength * 60 * 1000;
     this.audio = document.getElementById('audio');
     this.audio.play();
+    const timer = setInterval(() => {
+      const date = new Date();
+      if (date >= to) {
+        clearInterval(timer);
+        this.audio.pause();
+      };
+    }, this.audio.duration * 1000);
   }
 
   refresh() {
@@ -155,5 +164,11 @@ export default vm;
     display: flex;
     justify-content: space-around;
     align-items: baseline;
+  }
+
+  @media all and (max-width: 425px) {
+    .controls {
+      justify-content: space-between;
+    }
   }
 </style>
